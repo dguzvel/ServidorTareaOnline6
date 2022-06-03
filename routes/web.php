@@ -28,7 +28,7 @@ Route::get('/', function(){
 
 Route::get('miblog', function(){
     return view('inicio');
-});
+})->name('inicio');
 
 /*
 |
@@ -42,4 +42,5 @@ Route::controller(UsuarioController::class)->group(function() {
     Route::get('miblog/registrousuario', 'mostrarVista');
     Route::post('miblog/registrousuario', 'insertarUsuario')->name('insertarUsuario');
     Route::get('miblog/listarusuarios', 'listarUsuarios')->name('listarUsuarios');
+    Route::get('miblog/listarUnUsuario/id={id}', 'listarUnUsuario')->name('listarUnUsuario');
 });

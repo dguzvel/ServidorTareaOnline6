@@ -7,7 +7,7 @@
     <!-- Encabezado de la página -->
         <h1>
             <img class="textoImagen" src="{{asset('images/php.png')}}" />
-                <a href="">DWES Tarea Online 6 - Mi Blog</a>
+                <a href="{{route('inicio')}}">DWES Tarea Online 6 - Mi Blog</a>
             <img class="textoImagen" src="{{asset('images/php.png')}}" />
         </h1>
     </header>
@@ -26,7 +26,7 @@
 
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
-                    <button type="button" class="btn btn-light" onclick="location.href='../views/index.php?accion=listarUsuarios'">Listado de Usuarios</button>
+                    <button type="button" class="btn btn-light" onclick="location.href='{{route('listarUsuarios')}}'">Listado de Usuarios</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioEntrada.php'">Dejar una Entrada</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;

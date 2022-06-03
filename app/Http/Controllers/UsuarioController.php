@@ -23,7 +23,11 @@ class UsuarioController extends Controller
         $nuevoUsuario->apellidos = $valores->apellidos;
         $nuevoUsuario->email = $valores->email;
         $nuevoUsuario->password = $valores->password;
-        $nuevoUsuario->imagen = $valores->imagen;
+
+        $imagenSubida = $valores->imagen;
+        $nombreImagen = $imagenSubida->getClientOriginalName();
+        $imagenSubida->move('images', $nombreImagen);
+        $nuevoUsuario->imagen = $nombreImagen;
   
         $nuevoUsuario->save();
 
@@ -36,6 +40,20 @@ class UsuarioController extends Controller
         $listaUsuarios = Usuario::all();
 
         return view('listarUsuarios', compact('listaUsuarios'));
+
+    }
+
+    public function listarUnUsuario($id){
+
+        $usuarioDetallado = Usuario::find($id);
+
+        if(is_null($usuarioDetallado)){
+
+            return abort(404);
+            
+        }
+
+        return view('listarUnUsuario', compact('usuarioDetallado'));
 
     }
 

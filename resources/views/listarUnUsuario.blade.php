@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Listado de Usuarios')
+@section('titulo', 'Detalles de un Usuario')
 
 @section('contenido')
     <header class="encabezado text-center">
@@ -27,6 +27,8 @@
             <div class="bg-dark p-4">
                     <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarUsuario')}}'">Registro de Usuarios</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-light" onclick="location.href='{{route('listarUsuarios')}}'">Listado de Usuarios</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioEntrada.php'">Dejar una Entrada</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioCategoria.php'">Configuración de Categorías</button>
@@ -37,24 +39,24 @@
 
             <tr>
                 <th>NICK</th>
+                <th>NOMBRE</th>
+                <th>APELLIDOS</th>
                 <th>E-MAIL</th>
                 <th>IMAGEN</th>
                 <th>OPERACIONES</th>
             </tr>
 
-            @foreach ($listaUsuarios as $usuario)
             <tr>
-                <td>{{$usuario->nick}}</td>
-                <td>{{$usuario->email}}</td>
-                <td><img src="../../public/images/{{$usuario->imagen}}" height="100" width="100"/></td>
+                <td>{{$usuarioDetallado->nick}}</td>
+                <td>{{$usuarioDetallado->nombre}}</td>
+                <td>{{$usuarioDetallado->apellidos}}</td>
+                <td>{{$usuarioDetallado->email}}</td>
+                <td><img src="../../images/{{$usuarioDetallado->imagen}}" height="100" width="100"/></td>
                 <td><a href="../views/index.php?accion=editarUsuario&usuario_id=">Editar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="../views/index.php?accion=eliminarUsuario&usuario_id=">Eliminar</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{route('listarUnUsuario', $usuario->id)}}">Detallar</a>
                 </td>
             </tr>
-            @endforeach
 
         </table>      
     </main>
