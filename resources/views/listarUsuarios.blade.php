@@ -47,9 +47,10 @@
                 <td>{{$usuario->nick}}</td>
                 <td>{{$usuario->email}}</td>
                 <td><img src="../../public/images/{{$usuario->imagen}}" height="100" width="100"/></td>
-                <td><a href="../views/index.php?accion=editarUsuario&usuario_id=">Editar</a>
+                <td>
+                    <a href="{{route('mostrarActualizar', $usuario)}}">Editar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="../views/index.php?accion=eliminarUsuario&usuario_id=">Eliminar</a>
+                    <a href="{{route('eliminarUsuario', $usuario)}}">Eliminar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="{{route('listarUnUsuario', $usuario->id)}}">Detallar</a>
                 </td>

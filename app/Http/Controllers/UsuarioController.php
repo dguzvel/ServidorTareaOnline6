@@ -22,7 +22,7 @@ class UsuarioController extends Controller
         $nuevoUsuario->nombre = $valores->nombre;
         $nuevoUsuario->apellidos = $valores->apellidos;
         $nuevoUsuario->email = $valores->email;
-        $nuevoUsuario->password = $valores->password;
+        $nuevoUsuario->password = sha1($valores->password);
 
         $imagenSubida = $valores->imagen;
         $nombreImagen = $imagenSubida->getClientOriginalName();
@@ -54,6 +54,37 @@ class UsuarioController extends Controller
         }
 
         return view('listarUnUsuario', compact('usuarioDetallado'));
+
+    }
+
+    public function eliminarUsuario(Usuario $usuarioEliminado){
+
+        $usuarioEliminado->delete();
+
+        return redirect()->route('listarUsuarios');
+
+    }
+
+    public function mostrarActualizar(Usuario $usuarioActualizado){
+
+        return view('formularioActualizaUsuario', compact('usuarioActualizado'));
+
+    }
+    
+    public function actualizarUsuario(Usuario $usuarioActualizado, Request $valoresActualizados){
+
+        $usuarioActualizado->nombre = $valoresActualizados->nombre;
+        $usuarioActualizado->apellidos = $valoresActualizados->apellidos;
+        $usuarioActualizado->email = $valoresActualizados->email;
+
+        $imagenSubida = $valoresActualizados->imagen;
+        $nombreImagen = $imagenSubida->getClientOriginalName();
+        $imagenSubida->move('images', $nombreImagen);
+        $usuarioActualizado->imagen = $nombreImagen;
+  
+        $usuarioActualizado->save();
+
+        return redirect()->route('listarUsuarios');
 
     }
 

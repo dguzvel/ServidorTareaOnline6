@@ -39,8 +39,11 @@ Route::get('miblog', function(){
 */
 
 Route::controller(UsuarioController::class)->group(function() {
-    Route::get('miblog/registrousuario', 'mostrarVista');
+    Route::get('miblog/registrousuario', 'mostrarVista')->name('mostrarVista');
     Route::post('miblog/registrousuario', 'insertarUsuario')->name('insertarUsuario');
     Route::get('miblog/listarusuarios', 'listarUsuarios')->name('listarUsuarios');
     Route::get('miblog/listarUnUsuario/id={id}', 'listarUnUsuario')->name('listarUnUsuario');
+    Route::get('miblog/{usuarioEliminado}', 'eliminarUsuario')->name('eliminarUsuario');
+    Route::get('miblog/formularioActualizaUsuario/{usuarioActualizado}', 'mostrarActualizar')->name('mostrarActualizar');
+    Route::put('miblog/{usuarioActualizado}', 'actualizarUsuario')->name('actualizarUsuario');
 });

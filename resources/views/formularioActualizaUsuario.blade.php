@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Detalles de un Usuario')
+@section('titulo', 'Formulario de Actualización de Usuario')
 
 @section('contenido')
     <header class="encabezado text-center">
@@ -13,6 +13,7 @@
     </header>
 
     <main>
+
         <nav class="navbar navbar-dark bg-dark">
             <!-- Incluimos un nav con un botón toggler, tres líneas verticales, que podrá desplegarse y mostrar un menú -->
             <div class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -25,41 +26,55 @@
 
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
-                    <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarUsuario')}}'">Registro de Usuarios</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='{{route('listarUsuarios')}}'">Listado de Usuarios</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioEntrada.php'">Dejar una Entrada</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioCategoria.php'">Configuración de Categorías</button>
             </div>
-        </div>           
-        
-        <table class="table table-dark table-striped table-hover text-center align-middle" style="font-size: 20px;">
+        </div>
 
-            <tr>
-                <th>NICK</th>
-                <th>NOMBRE</th>
-                <th>APELLIDOS</th>
-                <th>E-MAIL</th>
-                <th>IMAGEN</th>
-                <th>OPERACIONES</th>
-            </tr>
+        <section class="container cuerpo text-center">
 
-            <tr>
-                <td>{{$usuarioDetallado->nick}}</td>
-                <td>{{$usuarioDetallado->nombre}}</td>
-                <td>{{$usuarioDetallado->apellidos}}</td>
-                <td>{{$usuarioDetallado->email}}</td>
-                <td><img src="../../images/{{$usuarioDetallado->imagen}}" height="100" width="100"/></td>
-                <td>
-                    <a href="{{route('mostrarActualizar', $usuarioDetallado)}}">Editar</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{route('eliminarUsuario', $usuarioDetallado)}}">Eliminar</a>
-                </td>
-            </tr>
+            <h3 id="titulo">Actualizar Usuario</h3>
+            <br>
+            <!-- Formulario HTML que realizará la acción de la ruta establecida, recoger.php -->
+            <form action="{{ route('actualizarUsuario', $usuarioActualizado) }}" method="POST" enctype="multipart/form-data">
 
-        </table>      
+                @csrf
+
+                @method('put')
+
+                <label for="nombre">
+                    Nombre:
+                    <input type="text" name="nombre" class="form-control" value="{{$usuarioActualizado->nombre}}" />
+                </label>
+                <br><br>
+
+                <label for="apellidos">
+                    Apellidos:
+                    <input type="text" name="apellidos" class="form-control" value="{{$usuarioActualizado->apellidos}}" />
+                </label>
+                <br><br>
+
+                <label for="email">
+                    E-mail:
+                    <input type="email" name="email" class="form-control" value="{{$usuarioActualizado->email}}"/>
+                </label>
+                <br><br>
+
+                <label for="imagen">
+                    Imagen:
+                    <input type="file" name="imagen" class="form-control" />
+                    <img src="../../images/{{$usuarioActualizado->imagen}}" height="100" width="100"/>
+                </label>
+                <br><br>
+
+                <input type="submit" value="Enviar" name="submit" class="btn btn-success" />
+
+            </form>
+
+        </section>
     </main>
 
     <footer class="pie text-center">
