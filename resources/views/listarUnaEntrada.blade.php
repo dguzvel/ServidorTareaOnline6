@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Formulario de Actualización de Usuario')
+@section('titulo', 'Detalles de una Entrada')
 
 @section('contenido')
     <header class="encabezado text-center">
@@ -13,7 +13,6 @@
     </header>
 
     <main>
-
         <nav class="navbar navbar-dark bg-dark">
             <!-- Incluimos un nav con un botón toggler, tres líneas verticales, que podrá desplegarse y mostrar un menú -->
             <div class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -26,55 +25,43 @@
 
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
+                    <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarUsuario')}}'">Registro de Usuarios</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='{{route('listarUsuarios')}}'">Listado de Usuarios</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarEntrada')}}'">Dejar una Entrada</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioCategoria.php'">Configuración de Categorías</button>
             </div>
-        </div>
+        </div>           
+        
+        <table class="table table-dark table-striped table-hover text-center align-middle" style="font-size: 20px;">
 
-        <section class="container cuerpo text-center">
+            <tr>
+                <th>USUARIO</th>
+                <th>ROL</th>
+                <th>TITULO</th>
+                <th>IMAGEN</th>
+                <th>DESCRIPCION</th>
+                <th>FECHA</th>
+                <th>OPERACIONES</th>
+            </tr>
 
-            <h3 id="titulo">Actualizar Usuario</h3>
-            <br>
-            <!-- Formulario HTML que realizará la acción de la ruta establecida, recoger.php -->
-            <form action="{{ route('actualizarUsuario', $usuarioActualizado) }}" method="POST" enctype="multipart/form-data">
+            <tr>
+                <td>{{$entradaDetallada->usuario_id}}</td>
+                <td>{{$entradaDetallada->categoria_id}}</td>
+                <td>{{$entradaDetallada->titulo}}</td>
+                <td><img src="../../images/{{$entradaDetallada->imagen}}" height="100" width="100"/></td>
+                <td>{{$entradaDetallada->descripcion}}</td>
+                <td>{{$entradaDetallada->created_at}}</td>
+                <td>
+                    <a href="{{route('mostrarActualizarEntrada', $entradaDetallada)}}">Editar</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{route('eliminarEntrada', $entradaDetallada)}}">Eliminar</a>
+                </td>
+            </tr>
 
-                @csrf
-
-                @method('put')
-
-                <label for="nombre">
-                    Nombre:
-                    <input type="text" name="nombre" class="form-control" value="{{$usuarioActualizado->nombre}}" />
-                </label>
-                <br><br>
-
-                <label for="apellidos">
-                    Apellidos:
-                    <input type="text" name="apellidos" class="form-control" value="{{$usuarioActualizado->apellidos}}" />
-                </label>
-                <br><br>
-
-                <label for="email">
-                    E-mail:
-                    <input type="email" name="email" class="form-control" value="{{$usuarioActualizado->email}}"/>
-                </label>
-                <br><br>
-
-                <label for="imagen">
-                    Imagen:
-                    <input type="file" name="imagen" class="form-control" />
-                    <img src="../../images/{{$usuarioActualizado->imagen}}" height="100" width="100"/>
-                </label>
-                <br><br>
-
-                <input type="submit" value="Enviar" name="submit" class="btn btn-success" />
-
-            </form>
-
-        </section>
+        </table>      
     </main>
 
     <footer class="pie text-center">

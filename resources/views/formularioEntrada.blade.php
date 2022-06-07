@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Formulario de Actualización de Usuario')
+@section('titulo', 'Formulario de Registro de Entradas')
 
 @section('contenido')
     <header class="encabezado text-center">
@@ -26,9 +26,9 @@
 
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
-                    <button type="button" class="btn btn-light" onclick="location.href='{{route('listarUsuarios')}}'">Listado de Usuarios</button>
+                    <button type="button" class="btn btn-light" onclick="location.href='{{route('listarEntradas')}}'">Listado de Entradas</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarEntrada')}}'">Dejar una Entrada</button>
+                    <button type="button" class="btn btn-light" onclick="location.href='{{route('insertarUsuario')}}'">Registro de Usuarios</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" class="btn btn-light" onclick="location.href='formularioCategoria.php'">Configuración de Categorías</button>
             </div>
@@ -36,37 +36,43 @@
 
         <section class="container cuerpo text-center">
 
-            <h3 id="titulo">Actualizar Usuario</h3>
+            <h3 id="titulo">Añadir Entrada</h3>
             <br>
             <!-- Formulario HTML que realizará la acción de la ruta establecida, recoger.php -->
-            <form action="{{ route('actualizarUsuario', $usuarioActualizado) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('insertarEntrada') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
 
-                @method('put')
-
-                <label for="nombre">
-                    Nombre:
-                    <input type="text" name="nombre" class="form-control" value="{{$usuarioActualizado->nombre}}" />
-                </label>
-                <br><br>
-
-                <label for="apellidos">
-                    Apellidos:
-                    <input type="text" name="apellidos" class="form-control" value="{{$usuarioActualizado->apellidos}}" />
-                </label>
-                <br><br>
-
-                <label for="email">
-                    E-mail:
-                    <input type="email" name="email" class="form-control" value="{{$usuarioActualizado->email}}"/>
+                <label for="titulo">
+                    Titulo:
+                    <input type="text" name="titulo" class="form-control" 
+                        <?php
+                            if(isset($_POST["nick"])){
+                                echo "value='{$_POST["nick"]}'";
+                            }
+                        ?>
+                    />
+                    <?php //echo mostrarError($errores, "nick"); ?>
                 </label>
                 <br><br>
 
                 <label for="imagen">
                     Imagen:
                     <input type="file" name="imagen" class="form-control" />
-                    <img src="../../images/{{$usuarioActualizado->imagen}}" height="100" width="100"/>
+                    <?php //echo mostrarError($errores, "imagen"); ?>
+                </label>
+                <br><br>
+
+                <label for="descripcion">
+                    Descripcion:
+                    <textarea name="descripcion" class="form-control">
+                        <?php
+                            if(isset($_POST["bio"])){
+                                echo $_POST["bio"];
+                            }
+                        ?>
+                    </textarea>
+                    <?php //echo mostrarError($errores, "bio"); ?>
                 </label>
                 <br><br>
 

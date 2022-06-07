@@ -37,7 +37,7 @@ class UsuarioController extends Controller
 
     public function listarUsuarios(){
 
-        $listaUsuarios = Usuario::all();
+        $listaUsuarios = Usuario::paginate(2);
 
         return view('listarUsuarios', compact('listaUsuarios'));
 

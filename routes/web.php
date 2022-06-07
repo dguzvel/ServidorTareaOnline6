@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EntradaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,14 @@ Route::controller(UsuarioController::class)->group(function() {
     Route::get('miblog/{usuarioEliminado}', 'eliminarUsuario')->name('eliminarUsuario');
     Route::get('miblog/formularioActualizaUsuario/{usuarioActualizado}', 'mostrarActualizar')->name('mostrarActualizar');
     Route::put('miblog/{usuarioActualizado}', 'actualizarUsuario')->name('actualizarUsuario');
+});
+
+Route::controller(EntradaController::class)->group(function() {
+    Route::get('miblog/registroentrada', 'mostrarVistaEntrada')->name('mostrarVistaEntrada');
+    Route::post('miblog/registroentrada', 'insertarEntrada')->name('insertarEntrada');
+    Route::get('miblog/listarentradas', 'listarEntradas')->name('listarEntradas');
+    Route::get('miblog/listarUnaEntrada/id={id}', 'listarUnaEntrada')->name('listarUnaEntrada');
+    Route::get('miblog/{entradaEliminada}', 'eliminarEntrada')->name('eliminarEntrada');
+    Route::get('miblog/formularioActualizaEntrada/{entradaActualizada}', 'mostrarActualizarEntrada')->name('mostrarActualizarEntrada');
+    Route::put('miblog/{entradaActualizada}', 'actualizarEntrada')->name('actualizarEntrada');
 });

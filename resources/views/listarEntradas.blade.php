@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Listado de Usuarios')
+@section('titulo', 'Listado de Entradas')
 
 @section('contenido')
     <header class="encabezado text-center">
@@ -36,23 +36,23 @@
         <table class="table table-dark table-striped table-hover text-center align-middle" style="font-size: 20px;">
 
             <tr>
-                <th>NICK</th>
-                <th>E-MAIL</th>
+                <th>USUARIO</th>
+                <th>TITULO</th>
                 <th>IMAGEN</th>
                 <th>OPERACIONES</th>
             </tr>
 
-            @foreach ($listaUsuarios as $usuario)
+            @foreach ($listaEntradas as $entrada)
             <tr>
-                <td>{{$usuario->nick}}</td>
-                <td>{{$usuario->email}}</td>
-                <td><img src="../../public/images/{{$usuario->imagen}}" height="100" width="100"/></td>
+                <td>{{$entrada->usuario_id}}</td>
+                <td>{{$entrada->titulo}}</td>
+                <td><img src="../../public/images/{{$entrada->imagen}}" height="200" width="200"/></td>
                 <td>
-                    <a href="{{route('mostrarActualizar', $usuario)}}">Editar</a>
+                    <a href="{{route('mostrarActualizarEntrada', $entrada)}}">Editar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{route('eliminarUsuario', $usuario)}}">Eliminar</a>
+                    <a href="{{route('eliminarEntrada', $entrada)}}">Eliminar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{route('listarUnUsuario', $usuario->id)}}">Detallar</a>
+                    <a href="{{route('listarUnaEntrada', $entrada->id)}}">Detallar</a>
                 </td>
             </tr>
             @endforeach
@@ -60,7 +60,7 @@
         </table>
     </main>
     <div class="d-flex justify-content-center">
-        {{$listaUsuarios->links()}}
+        {{$listaEntradas->links()}}
     </div>
     <footer class="pie text-center">
     <!-- Pie de la página -->

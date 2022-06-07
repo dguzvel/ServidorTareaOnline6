@@ -42,3 +42,13 @@ body{
     margin-top: 5px;
 
 }
+
+.page-item.active .page-link {
+    color: black;
+    background-color: limegreen;
+    border-color: green;
+}
+
+.page-item .page-link {
+    color: black;
+}
