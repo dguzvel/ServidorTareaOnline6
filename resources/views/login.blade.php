@@ -3,14 +3,6 @@
 @section('titulo', 'Acceso al Blog')
     
 @section('contenido')
-    <header class="encabezado text-center">
-    <!-- Encabezado de la página -->
-        <h1>
-            <img class="textoImagen" src="{{asset('images/php.png')}}" />
-                <a href="">DWES Tarea Online 6 - Mi Blog</a>
-            <img class="textoImagen" src="{{asset('images/php.png')}}" />
-        </h1>
-    </header>
 
     <main>
         <section class="container cuerpo text-center">
@@ -104,8 +96,4 @@
         </section>
     </main>
 
-    <footer class="pie text-center">
-    <!-- Pie de la página -->
-        <p>Domingo Guzmán Vélez</p>
-    </footer>
 @endsection

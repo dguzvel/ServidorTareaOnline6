@@ -7,15 +7,41 @@ use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        
+        $listaUsuarios = Usuario::sortable()->paginate(3);
 
-    public function mostrarVista(){
+        return view('listarUsuarios', compact('listaUsuarios'));
 
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        
         return view('formularioUsuario');
 
     }
 
-    public function insertarUsuario(Request $valores){
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $valores
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $valores)
+    {
+        
         $nuevoUsuario = new Usuario();
 
         $nuevoUsuario->nick = $valores->nick;
@@ -26,25 +52,24 @@ class UsuarioController extends Controller
 
         $imagenSubida = $valores->imagen;
         $nombreImagen = $imagenSubida->getClientOriginalName();
-        $imagenSubida->move('images', $nombreImagen);
+        $imagenSubida->move('miblog/images', $nombreImagen);
         $nuevoUsuario->imagen = $nombreImagen;
   
         $nuevoUsuario->save();
 
-        return redirect()->route('listarUsuarios');
+        return redirect()->route('usuario.index');
 
     }
 
-    public function listarUsuarios(){
-
-        $listaUsuarios = Usuario::paginate(2);
-
-        return view('listarUsuarios', compact('listaUsuarios'));
-
-    }
-
-    public function listarUnUsuario($id){
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        
         $usuarioDetallado = Usuario::find($id);
 
         if(is_null($usuarioDetallado)){
@@ -57,21 +82,31 @@ class UsuarioController extends Controller
 
     }
 
-    public function eliminarUsuario(Usuario $usuarioEliminado){
-
-        $usuarioEliminado->delete();
-
-        return redirect()->route('listarUsuarios');
-
-    }
-
-    public function mostrarActualizar(Usuario $usuarioActualizado){
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        
+        $usuarioActualizado = Usuario::findorFail($id);
 
         return view('formularioActualizaUsuario', compact('usuarioActualizado'));
 
     }
-    
-    public function actualizarUsuario(Usuario $usuarioActualizado, Request $valoresActualizados){
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $valoresActualizados
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $valoresActualizados, $usuarioActualizado)
+    {
+        
+        $usuarioActualizado = Usuario::findorFail($usuarioActualizado);
 
         $usuarioActualizado->nombre = $valoresActualizados->nombre;
         $usuarioActualizado->apellidos = $valoresActualizados->apellidos;
@@ -79,13 +114,29 @@ class UsuarioController extends Controller
 
         $imagenSubida = $valoresActualizados->imagen;
         $nombreImagen = $imagenSubida->getClientOriginalName();
-        $imagenSubida->move('images', $nombreImagen);
+        $imagenSubida->move('miblog/images', $nombreImagen);
         $usuarioActualizado->imagen = $nombreImagen;
   
         $usuarioActualizado->save();
 
-        return redirect()->route('listarUsuarios');
+        return redirect()->route('usuario.index');
 
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        
+        $usuarioEliminado = Usuario::findorFail($id);
+
+        $usuarioEliminado->delete();
+
+        return redirect()->route('usuario.index');
+
+    }
 }

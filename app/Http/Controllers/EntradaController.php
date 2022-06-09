@@ -4,17 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entrada;
+
 class EntradaController extends Controller
 {
-    
-    public function mostrarVistaEntrada(){
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        
+        $listaEntradas = Entrada::sortable()->paginate(2);
 
+        return view('listarEntradas', compact('listaEntradas'));
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        
         return view('formularioEntrada');
 
     }
 
-    public function insertarEntrada(Request $valores){
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $valores
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $valores)
+    {
+        
         $nuevaEntrada = new Entrada();
 
         $nuevaEntrada->usuario_id = 1;
@@ -23,27 +50,26 @@ class EntradaController extends Controller
 
         $imagenSubida = $valores->imagen;
         $nombreImagen = $imagenSubida->getClientOriginalName();
-        $imagenSubida->move('images', $nombreImagen);
+        $imagenSubida->move('miblog/images', $nombreImagen);
         $nuevaEntrada->imagen = $nombreImagen;
 
         $nuevaEntrada->descripcion = $valores->descripcion;
   
         $nuevaEntrada->save();
 
-        return redirect()->route('listarEntradas');
+        return redirect()->route('entrada.index');
 
     }
 
-    public function listarEntradas(){
-
-        $listaEntradas = Entrada::paginate(2);
-
-        return view('listarEntradas', compact('listaEntradas'));
-
-    }
-
-    public function listarUnaEntrada($id){
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        
         $entradaDetallada = Entrada::find($id);
 
         if(is_null($entradaDetallada)){
@@ -56,35 +82,61 @@ class EntradaController extends Controller
 
     }
 
-    public function eliminarEntrada(Entrada $entradaEliminada){
-
-        $entradaEliminada->delete();
-
-        return redirect()->route('listarEntradas');
-
-    }
-
-    public function mostrarActualizarEntrada(Entrada $entradaActualizada){
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+     
+        $entradaActualizada = Entrada::findorFail($id);
 
         return view('formularioActualizaEntrada', compact('entradaActualizada'));
 
     }
-    
-    public function actualizarEntrada(Entrada $entradaActualizada, Request $valoresActualizados){
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $valoresActualizados
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $valoresActualizados, $entradaActualizada)
+    {
+        
+        $entradaActualizada = Entrada::findorFail($entradaActualizada);
 
         $entradaActualizada->titulo = $valoresActualizados->titulo;
 
         $imagenSubida = $valoresActualizados->imagen;
         $nombreImagen = $imagenSubida->getClientOriginalName();
-        $imagenSubida->move('images', $nombreImagen);
+        $imagenSubida->move('miblog/images', $nombreImagen);
         $entradaActualizada->imagen = $nombreImagen;
 
         $entradaActualizada->descripcion = $valoresActualizados->descripcion;
   
         $entradaActualizada->save();
 
-        return redirect()->route('listarEntradas');
+        return redirect()->route('entrada.index');
 
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        
+        $entradaEliminada = Entrada::findorFail($id);
+
+        $entradaEliminada->delete();
+
+        return redirect()->route('entrada.index');
+
+    }
 }
