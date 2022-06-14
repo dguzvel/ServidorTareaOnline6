@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ValidarRequest;
+use App\Http\Requests\ValidarActuRequest;
+use Carbon\Carbon;
 
 class UsuarioController extends Controller
 {
@@ -36,10 +39,10 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $valores
+     * @param  App\Http\Requests\ValidarRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $valores)
+    public function store(ValidarRequest $valores)
     {
         
         $nuevoUsuario = new Usuario();
@@ -56,6 +59,17 @@ class UsuarioController extends Controller
         $nuevoUsuario->imagen = $nombreImagen;
   
         $nuevoUsuario->save();
+
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha agregado un nuevo Usuario con Nick: '.$valores->nick,
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
 
         return redirect()->route('usuario.index');
 
@@ -77,6 +91,17 @@ class UsuarioController extends Controller
             return abort(404);
             
         }
+
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha visto en detalle al Usuario con Nick: '.$usuarioDetallado->nick,
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
 
         return view('listarUnUsuario', compact('usuarioDetallado'));
 
@@ -100,10 +125,10 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $valoresActualizados
+     * @param  App\Http\Requests\ValidarActuRequest $valoresActualizados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $valoresActualizados, $usuarioActualizado)
+    public function update(ValidarActuRequest $valoresActualizados, $usuarioActualizado)
     {
         
         $usuarioActualizado = Usuario::findorFail($usuarioActualizado);
@@ -118,6 +143,17 @@ class UsuarioController extends Controller
         $usuarioActualizado->imagen = $nombreImagen;
   
         $usuarioActualizado->save();
+
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha actualizado al Usuario con Nick: '.$usuarioActualizado->nick,
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
 
         return redirect()->route('usuario.index');
 
@@ -136,7 +172,30 @@ class UsuarioController extends Controller
 
         $usuarioEliminado->delete();
 
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha eliminado al Usuario con Nick: '.$usuarioEliminado->nick,
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
+
         return redirect()->route('usuario.index');
 
     }
+
+    public function search()
+    {
+        
+        $textoBusca = $_GET['busqueda'];
+
+        $usuariosBuscados = Usuario::where('nick','LIKE','%'.$textoBusca.'%')->get();
+
+        return view('listarUsuariosBuscados', compact('usuariosBuscados'));
+
+    }
+
 }

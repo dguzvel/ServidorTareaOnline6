@@ -15,34 +15,19 @@
 
                 <label for="titulo">
                     Titulo:
-                    <input type="text" name="titulo" class="form-control" 
-                        <?php
-                            if(isset($_POST["nick"])){
-                                echo "value='{$_POST["nick"]}'";
-                            }
-                        ?>
-                    />
-                    <?php //echo mostrarError($errores, "nick"); ?>
+                    <input type="text" name="titulo" class="form-control" value="{{old('titulo')}}" required/>
                 </label>
                 <br><br>
 
                 <label for="imagen">
                     Imagen:
-                    <input type="file" name="imagen" class="form-control" />
-                    <?php //echo mostrarError($errores, "imagen"); ?>
+                    <input type="file" name="imagen" class="form-control" required/>
                 </label>
                 <br><br>
 
                 <label for="descripcion">
                     Descripcion:
-                    <textarea name="descripcion" class="form-control">
-                        <?php
-                            if(isset($_POST["bio"])){
-                                echo $_POST["bio"];
-                            }
-                        ?>
-                    </textarea>
-                    <?php //echo mostrarError($errores, "bio"); ?>
+                    <textarea name="descripcion" class="form-control" required>{{old('descripcion')}}</textarea>
                 </label>
                 <br><br>
 

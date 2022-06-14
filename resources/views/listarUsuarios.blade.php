@@ -26,7 +26,7 @@
                     <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar a este usuario?')">Eliminar</button>
                     </form>
                     &nbsp;
                     <form>
@@ -40,11 +40,17 @@
 
         <div class="d-flex justify-content-center">
             {{-- {{$listaUsuarios->links()}} --}}
-            {{!! $listaUsuarios->appends(Request::except('page'))->render() !!}}
+            {!! $listaUsuarios->appends(Request::except('page'))->render() !!}
         </div>
 
         <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-primary" onclick="location.href='{{route('previaPDF')}}'">Previsualizar PDF a imprimir</button>
+        </div>
+
+        <br>
+
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" onclick="location.href='{{route('previaExcel')}}'">Previsualizar EXCEL a exportar/importar</button>
         </div>
 
 @endsection

@@ -12,12 +12,14 @@
             <!-- Formulario HTML que realizará la acción de la ruta establecida -->
             <form action="" method="POST" enctype="multipart/form-data">
 
-                <label for="usuario">
-                    Usuario:
-                    <input type="text" name="usuario" class="form-control" 
+                @csrf
+
+                <label for="nick">
+                    Nick:
+                    <input type="text" name="nick" class="form-control" 
                         <?php
-                            if(isset($_COOKIE["usuario"])){
-                                echo "value='{$_COOKIE["usuario"]}'";
+                            if(isset($_COOKIE["nick"])){
+                                echo "value='{$_COOKIE["nick"]}'";
                             }
                         ?>
                     />
@@ -89,6 +91,7 @@
 
                 ?>
 
+                <br>
                 <input type="submit" value="Enviar" name="submit" class="btn btn-success" />
 
             </form>

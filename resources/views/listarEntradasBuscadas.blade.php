@@ -1,6 +1,6 @@
 @extends('layouts.plantilla')
 
-@section('titulo', 'Listado de Entradas')
+@section('titulo', 'Listado de Entradas Buscadas')
 
 @section('contenido')         
         
@@ -14,7 +14,7 @@
                 <th>OPERACIONES</th>
             </tr>
 
-            @foreach ($listaEntradas as $entrada)
+            @foreach ($entradasBuscadas as $entrada)
             <tr>
                 <td>{{$entrada->usuario_id}}</td>
                 <td>{{$entrada->titulo}}</td>
@@ -39,9 +39,5 @@
             @endforeach
 
         </table>
- 
-        <div class="d-flex justify-content-center">
-            {{!! $listaEntradas->appends(Request::except('page'))->render() !!}}
-        </div>
         
 @endsection

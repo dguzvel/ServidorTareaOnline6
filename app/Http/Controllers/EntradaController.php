@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entrada;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class EntradaController extends Controller
 {
@@ -57,6 +59,17 @@ class EntradaController extends Controller
   
         $nuevaEntrada->save();
 
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha agregado una nueva Entrada por parte del usuario: 1',
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
+
         return redirect()->route('entrada.index');
 
     }
@@ -77,6 +90,17 @@ class EntradaController extends Controller
             return abort(404);
             
         }
+
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha visto en detalle la Entrada con titulo: '.$entradaDetallada->titulo,
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
 
         return view('listarUnaEntrada', compact('entradaDetallada'));
 
@@ -119,6 +143,17 @@ class EntradaController extends Controller
   
         $entradaActualizada->save();
 
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha actualizado una Entrada',
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
+
         return redirect()->route('entrada.index');
 
     }
@@ -136,7 +171,30 @@ class EntradaController extends Controller
 
         $entradaEliminada->delete();
 
+        $operacion = [
+
+            'id'         => NULL,
+            'operacion'  => 'Se ha eliminado una Entrada',
+            'created_at' => Carbon::now(),
+            'updated_at' => now()
+            
+        ];
+
+        DB::table('logs')->insert($operacion);
+
         return redirect()->route('entrada.index');
 
     }
+
+    public function search()
+    {
+        
+        $textoBusca = $_GET['busqueda'];
+
+        $entradasBuscadas = Entrada::where('descripcion','LIKE','%'.$textoBusca.'%')->get();
+
+        return view('listarEntradasBuscadas', compact('entradasBuscadas'));
+
+    }
+
 }

@@ -31,7 +31,7 @@
                     <form action="{{ route('entrada.destroy', $entradaDetallada->id) }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar esta entrada?')">Eliminar</button>
                     </form>
                 </td>
             </tr>

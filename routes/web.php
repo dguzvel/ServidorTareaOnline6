@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\DomPDFController;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return view('login');
+});
+
+Route::post('/', function(){
+
+    $credenciales = request()->only('nick', 'password');
+
+    $nick = $credenciales['nick'];
+    $password = sha1($credenciales['password']);
+
+    if (Auth::attempt(['nick' => $nick, 'password' => $password])){
+
+        return 'BIEN';
+
+    }else{
+
+        return 'FALLASTE';
+
+    }
+
 });
 
 Route::get('miblog/inicio', function(){
@@ -64,6 +86,14 @@ Route::get('miblog/inicio', function(){
 
 Route::resource('miblog/usuario', UsuarioController::class);
 Route::resource('miblog/entrada', EntradaController::class);
+Route::resource('miblog/log', LogController::class);
 
 Route::get('miblog/vistapdf', [DomPDFController::class, 'previaPDF'])->name('previaPDF');
 Route::get('miblog/pdfgenerado', [DomPDFController::class, 'conviertePDF'])->name('conviertePDF');
+
+Route::get('miblog/vistaexcel', [ExcelController::class, 'previaExcel'])->name('previaExcel');
+Route::get('miblog/exportaexcel', [ExcelController::class, 'exportar'])->name('exportar');
+Route::post('miblog/importaexcel', [ExcelController::class, 'importar'])->name('importar');
+
+Route::get('miblog/busqueda', [EntradaController::class, 'search'])->name('search');
+Route::get('miblog/busquedausuario', [UsuarioController::class, 'search'])->name('searchUsuario');

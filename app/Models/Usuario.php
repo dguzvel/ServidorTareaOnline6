@@ -11,6 +11,19 @@ class Usuario extends Model
     use HasFactory;
     use Sortable;
 
+    protected $table = "users";
+
+    protected $fillable = [
+
+        'nick',
+        'nombre',
+        'apellidos',
+        'email',
+        'password',
+        'imagen',
+        
+    ];
+
     public $sortable = ['nick'];
 
 }

@@ -50,10 +50,35 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-light" onclick="location.href='{{route('entrada.index')}}'">Listado de Entradas</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn-light" onclick="location.href='formularioCategoria.php'">Configuración de Categorías</button>
+                        <button type="button" class="btn btn-light" onclick="location.href='{{route('log.index')}}'">Listado de Logs</button>  
                 </div>
-            </div>
+
+                <form class="form" type="get" action="{{route('search')}}">
+
+                    <div class="input-group">  
+                    <input class="form-control" name="busqueda" type="search" placeholder="¿Busca algo en concreto? ... Busque aquí el contenido de las entradas que desee visualizar">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="submit"><i id="icono" class="fa fa-search"></i></button>
+                    </div>
     
+                </form>
+                
+                    </div>
+    
+                <form class="form" type="get" action="{{route('searchUsuario')}}">
+    
+                    <div class="input-group">  
+                    <input class="form-control" name="busqueda" type="search" placeholder="¿Busca a alguien? ... Busque aquí a los usuarios que desee visualizar">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="submit"><i id="icono" class="fa fa-search"></i></button>
+                    </div>
+    
+                </form>
+                
+                    </div>
+
+            </div>
+
             @yield('contenido')
 
         </main>
