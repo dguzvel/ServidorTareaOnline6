@@ -8,7 +8,7 @@
 
             <h3 id="titulo">Añadir Entrada</h3>
             <br>
-            <!-- Formulario HTML que realizará la acción de la ruta establecida, recoger.php -->
+            <!-- Formulario HTML que realizará la acción de la ruta establecida -->
             <form action="{{ route('entrada.store') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
@@ -35,8 +35,10 @@
 
             </form>
 
+            <!-- Inserción del editor de texto CKEDITOR -->
+            <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
             <script>
-                CKEDITOR.replace( 'descripcion' );
+                CKEDITOR.replace('descripcion');
             </script>
 
         </section>

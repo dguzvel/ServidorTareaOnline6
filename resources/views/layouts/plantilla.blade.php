@@ -16,8 +16,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Utilizamos asset para buscar en la carpeta public, donde estarán los recursos de estilo -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <!-- CKEditor -->
-        <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     </head>
     <body>
         <header class="encabezado text-center">
@@ -52,6 +50,8 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-light" onclick="location.href='{{route('log.index')}}'">Listado de Logs</button>  
                 </div>
+
+                <!-- Barras de búsqueda -->
 
                 <form class="form" type="get" action="{{route('search')}}">
 

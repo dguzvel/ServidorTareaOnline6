@@ -14,6 +14,7 @@
                 <th>OPERACIONES</th>
             </tr>
 
+            <!-- Bucle foreach que recorre la variable accesible a la vista desde el controlador mediante compact -->
             @foreach ($entradasBuscadas as $entrada)
             <tr>
                 <td>{{$entrada->usuario_id}}</td>

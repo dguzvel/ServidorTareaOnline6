@@ -8,7 +8,7 @@
 
             <h3 id="titulo">Actualizar Usuario</h3>
             <br>
-            <!-- Formulario HTML que realizará la acción de la ruta establecida, recoger.php -->
+            <!-- Formulario HTML que realizará la acción de la ruta establecida -->
             <form action="{{ route('usuario.update', $usuarioActualizado) }}" method="POST" enctype="multipart/form-data">
 
                 @csrf

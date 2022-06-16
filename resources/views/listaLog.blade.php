@@ -12,6 +12,7 @@
                 <th>ELIMINAR REGISTRO</th>
             </tr>
 
+            <!-- Bucle foreach que recorre la variable accesible a la vista desde el controlador mediante compact -->
             @foreach ($listaLogs as $log)
             <tr>
                 <td>{{$log->created_at}}</td>

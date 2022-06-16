@@ -59,6 +59,7 @@ class EntradaController extends Controller
   
         $nuevaEntrada->save();
 
+        //En diferentes funciones aparecerá un array llamado $operacion que inserta una serie de valores en la tabla logs, haciendo referencia a la función en uso
         $operacion = [
 
             'id'         => NULL,

@@ -13,6 +13,7 @@
                 <th>OPERACIONES</th>
             </tr>
 
+            <!-- Bucle foreach que recorre la variable accesible a la vista desde el controlador mediante compact -->
             @foreach ($listaUsuarios as $usuario)
             <tr>
                 <td>{{$usuario->nick}}</td>
@@ -38,17 +39,20 @@
 
         </table>
 
+        <!-- Ordena el paginado de modo que tenga en cuenta el orden ascendente o descendente de las entradas -->
         <div class="d-flex justify-content-center">
             {{-- {{$listaUsuarios->links()}} --}}
             {!! $listaUsuarios->appends(Request::except('page'))->render() !!}
         </div>
 
+        <!-- Botón para ver la previa del PDF que podremos descargar -->
         <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-primary" onclick="location.href='{{route('previaPDF')}}'">Previsualizar PDF a imprimir</button>
         </div>
 
         <br>
 
+        <!-- Botoón para ver la previa del contenido del EXCEL que podremos descargar -->
         <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-primary" onclick="location.href='{{route('previaExcel')}}'">Previsualizar EXCEL a exportar/importar</button>
         </div>

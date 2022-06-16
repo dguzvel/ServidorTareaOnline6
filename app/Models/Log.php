@@ -11,6 +11,7 @@ class Log extends Model
 
     protected $table = "logs";
 
+    //Se van a rellenar los campos mediante insert cuando se lleve a cabo alguna operación del CRUD
     protected $fillable = [
 
         'id',

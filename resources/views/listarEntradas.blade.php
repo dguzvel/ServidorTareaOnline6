@@ -14,6 +14,7 @@
                 <th>OPERACIONES</th>
             </tr>
 
+            <!-- Bucle foreach que recorre la variable accesible a la vista desde el controlador mediante compact -->
             @foreach ($listaEntradas as $entrada)
             <tr>
                 <td>{{$entrada->usuario_id}}</td>
@@ -39,7 +40,8 @@
             @endforeach
 
         </table>
- 
+        
+        <!-- Ordena el paginado de modo que tenga en cuenta el orden ascendente o descendente de las entradas -->
         <div class="d-flex justify-content-center">
             {{!! $listaEntradas->appends(Request::except('page'))->render() !!}}
         </div>

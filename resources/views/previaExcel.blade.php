@@ -15,6 +15,7 @@
                 <th>IMAGEN</th>
             </tr>
 
+            <!-- Bucle foreach que recorre la variable accesible a la vista desde el controlador mediante compact -->
             @foreach ($listaUsuarios as $usuario)
             <tr>
                 <td>{{$usuario->nick}}</td>

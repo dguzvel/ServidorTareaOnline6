@@ -14,6 +14,7 @@ class Entrada extends Model
 
     use Sortable;
 
+    //Los campos en $sortable se pueden ordenar de manera ascendente y descendente
     public $sortable = ['created_at'];
 
 }

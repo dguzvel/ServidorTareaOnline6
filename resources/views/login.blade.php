@@ -5,6 +5,7 @@
 @section('contenido')
 
     <main>
+        <!-- NO FUNCIONA - LOGIN PENDIENTE -->
         <section class="container cuerpo text-center">
 
             <h3 id="titulo">Login de Usuario</h3>

@@ -27,10 +27,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+//Pagina de Login, la primera que se vería por defecto al acceder al sitio web
 Route::get('/', function(){
     return view('login');
 });
 
+//Función del login sin necesidad de package o librerías - NO FUNCIONA
 Route::post('/', function(){
 
     $credenciales = request()->only('nick', 'password');
@@ -50,6 +52,7 @@ Route::post('/', function(){
 
 });
 
+//Pagina de bienvenida cuando se ha completado el proceso de Login
 Route::get('miblog/inicio', function(){
     return view('inicio');
 })->name('inicio');
@@ -84,16 +87,20 @@ Route::get('miblog/inicio', function(){
 //     Route::put('miblog/{entradaActualizada}', 'actualizarEntrada')->name('actualizarEntrada');
 // });
 
+//Resources de los diferentes controladores, cuentan con sus propias funciones con nombres por defecto (show, delete, store, etc.)
 Route::resource('miblog/usuario', UsuarioController::class);
 Route::resource('miblog/entrada', EntradaController::class);
 Route::resource('miblog/log', LogController::class);
 
+//Rutas para la previsualización y descarga del PDF
 Route::get('miblog/vistapdf', [DomPDFController::class, 'previaPDF'])->name('previaPDF');
 Route::get('miblog/pdfgenerado', [DomPDFController::class, 'conviertePDF'])->name('conviertePDF');
 
+//Rutas para la previsualización, exportación e importación de EXCEL
 Route::get('miblog/vistaexcel', [ExcelController::class, 'previaExcel'])->name('previaExcel');
 Route::get('miblog/exportaexcel', [ExcelController::class, 'exportar'])->name('exportar');
 Route::post('miblog/importaexcel', [ExcelController::class, 'importar'])->name('importar');
 
+//Rutas para las barras de búsqueda de entradas y usuarios
 Route::get('miblog/busqueda', [EntradaController::class, 'search'])->name('search');
 Route::get('miblog/busquedausuario', [UsuarioController::class, 'search'])->name('searchUsuario');

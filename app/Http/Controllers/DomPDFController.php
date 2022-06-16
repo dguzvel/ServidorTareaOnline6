@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class DomPDFController extends Controller
 {
     
+    //Devuelve una vista con un listado de todos los usuarios, como index del controlador de usuarios, pero sin paginar
     public function previaPDF(){
 
         $listaUsuarios = Usuario::all();
@@ -15,6 +16,7 @@ class DomPDFController extends Controller
         return view('previaPDF', compact('listaUsuarios'));
     }
 
+    //Devuelve la vista a través de la cual se formará y descargará el pdf
     public function conviertePDF(){
 
         $listaUsuarios = Usuario::all();

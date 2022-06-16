@@ -15,6 +15,7 @@
                 <th>OPERACIONES</th>
             </tr>
 
+            <!-- Variable accesible a la vista desde el controlador mediante compact de la que podemos extraer os valores de sus campos -->
             <tr>
                 <td>{{$usuarioDetallado->nick}}</td>
                 <td>{{$usuarioDetallado->nombre}}</td>
